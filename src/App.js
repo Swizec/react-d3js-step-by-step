@@ -9,7 +9,7 @@ import { loadAllData } from './DataHandling';
 
 import CountyMap from './components/CountyMap';
 import Histogram from './components/Histogram';
-import { Title, Description } from './components/Meta';
+import { Title, Description, GraphDescription } from './components/Meta';
 
 class App extends Component {
     state = {
@@ -65,6 +65,9 @@ class App extends Component {
                              allData={this.state.techSalaries}
                              medianIncomesByCounty={this.state.medianIncomesByCounty}
                              filteredBy={this.state.filteredBy} />
+
+                <GraphDescription data={filteredSalaries}
+                                  filteredBy={this.state.filteredBy} />
 
                 <svg width="1100" height="500">
                     <CountyMap usTopoJson={this.state.usTopoJson}
