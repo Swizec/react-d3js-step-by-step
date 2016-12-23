@@ -14,6 +14,20 @@ class Controls extends Component {
         jobTitle: '*'
     };
 
+    componentDidMount() {
+        let [year, USstate, jobTitle] = window.location.hash.replace('#', '').split("-");
+
+        if (year !== '*' && year) {
+            this.updateYearFilter(Number(year));
+        }
+        if (USstate !== '*' && USstate) {
+            this.updateUSstateFilter(USstate);
+        }
+        if (jobTitle !== '*' && jobTitle) {
+            this.updateJobTitleFilter(jobTitle);
+        }
+    }
+
     updateYearFilter(year, reset) {
         let filter = (d) => d.submit_date.getFullYear() === year;
 
@@ -51,6 +65,10 @@ class Controls extends Component {
     }
 
     componentDidUpdate() {
+        window.location.hash = [this.state.year || '*',
+                                this.state.USstate || '*',
+                                this.state.jobTitle || '*'].join("-");
+
         this.reportUpdateUpTheChain();
     }
 
