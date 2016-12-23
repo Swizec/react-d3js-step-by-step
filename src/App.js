@@ -54,6 +54,19 @@ class App extends Component {
         });
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        const { techSalaries, filteredBy } = this.state;
+
+        const changedSalaries = (techSalaries && techSalaries.length) !== (nextState.techSalaries && nextState.techSalaries.length);
+
+        const changedFilters = Object.keys(filteredBy)
+                                     .some(
+                                         k => filteredBy[k] !== nextState.filteredBy[k]
+                                     );
+
+        return changedSalaries || changedFilters;
+    }
+
     render() {
         if (this.state.techSalaries.length < 1) {
             return (
